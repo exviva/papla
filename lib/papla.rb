@@ -2,7 +2,7 @@
 require "papla/version"
 
 module Papla
-  def self.convert(number)
+  def self.[](number)
     validate!(number)
     if number.zero?
       ZERO

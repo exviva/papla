@@ -2,8 +2,6 @@
 require 'spec_helper'
 
 describe Papla do
-  subject { proc {|number| described_class.convert(number)} }
-
   it 'converts basic numbers' do
     subject[0].should eq('Zero')
     subject[1].should eq('Jeden')
