@@ -1,4 +1,4 @@
-# Papla
+# Papla [![Build Status](https://secure.travis-ci.org/exviva/papla.png)](http://travis-ci.org/exviva/papla)
 
 Papla is a Ruby gem that allows you to convert numbers into Polish words (e.g. `153` into `"sto pięćdziesiąt trzy"`), including the decimal part as cents and currency symbol. Its primary use case are invoices, where the total amount has to be displayed as words at the bottom line.
 
