@@ -211,6 +211,6 @@ describe Papla do
   end
 
   it 'does not support billions' do
-    proc { subject[1_000_000_000] }.should raise_error(ArgumentError)
+    expect { subject[1_000_000_000] }.to raise_error(ArgumentError)
   end
 end
