@@ -2,8 +2,31 @@
 require "papla/version"
 
 module Papla
+  # Converts a number to Polish words, capitalizing
+  # the first letter of the whole phrase.
+  #
+  # Currently numbers from 0 up to 999 999 999
+  # are supported. If you pass a bigger number,
+  # an <tt>ArgumentError</tt> is raised.
+  #
+  # To convert a number, simply call:
+  #
+  #   Papla[your_number]
+  #
+  # Examples:
+  #
+  #   Papla[0] # => "Zero"
+  #   Papla[22] # => "Dwadzieścia dwa"
+  #   Papla[150] # => "Sto pięćdziesiąt"
+  #   Papla[999] # => "Dziewięćset dziewięćdziesiąt dziewięć"
+  #   Papla[12345] # => "Dwanaście tysięcy trzysta czterdzieści pięć"
+  #   Papla[1_000_001] # => "Jeden milion jeden"
+  #
+  # @param [Fixnum] number the number to convert
+  # @return [String] the phrase in Polish
   def self.[](number)
     validate!(number)
+
     if number.zero?
       ZERO
     else
