@@ -92,4 +92,78 @@ describe Papla do
     subject[919].should eq('Dziewięćset dziewiętnaście')
     subject[990].should eq('Dziewięćset dziewięćdziesiąt')
   end
+
+  it 'supports thousands' do
+    subject[1000].should eq('Jeden tysiąc')
+    subject[1001].should eq('Jeden tysiąc jeden')
+    subject[1234].should eq('Jeden tysiąc dwieście trzydzieści cztery')
+    subject[1999].should eq('Jeden tysiąc dziewięćset dziewięćdziesiąt dziewięć')
+
+    subject[2000].should eq('Dwa tysiące')
+    subject[2001].should eq('Dwa tysiące jeden')
+    subject[2345].should eq('Dwa tysiące trzysta czterdzieści pięć')
+    subject[2888].should eq('Dwa tysiące osiemset osiemdziesiąt osiem')
+
+    subject[3000].should eq('Trzy tysiące')
+    subject[4000].should eq('Cztery tysiące')
+    subject[5000].should eq('Pięć tysięcy')
+    subject[6000].should eq('Sześć tysięcy')
+    subject[7000].should eq('Siedem tysięcy')
+    subject[8000].should eq('Osiem tysięcy')
+    subject[9000].should eq('Dziewięć tysięcy')
+  end
+
+  it 'supports tens of thousands' do
+    subject[10000].should eq('Dziesięć tysięcy')
+
+    subject[11000].should eq('Jedenaście tysięcy')
+    subject[12000].should eq('Dwanaście tysięcy')
+    subject[13000].should eq('Trzynaście tysięcy')
+    subject[14000].should eq('Czternaście tysięcy')
+    subject[15000].should eq('Piętnaście tysięcy')
+    subject[16000].should eq('Szesnaście tysięcy')
+    subject[17000].should eq('Siedemnaście tysięcy')
+    subject[18000].should eq('Osiemnaście tysięcy')
+    subject[19000].should eq('Dziewiętnaście tysięcy')
+    subject[20000].should eq('Dwadzieścia tysięcy')
+
+    subject[21000].should eq('Dwadzieścia jeden tysięcy')
+    subject[22000].should eq('Dwadzieścia dwa tysiące')
+    subject[23000].should eq('Dwadzieścia trzy tysiące')
+    subject[24000].should eq('Dwadzieścia cztery tysiące')
+    subject[25000].should eq('Dwadzieścia pięć tysięcy')
+    subject[26000].should eq('Dwadzieścia sześć tysięcy')
+    subject[27000].should eq('Dwadzieścia siedem tysięcy')
+    subject[28000].should eq('Dwadzieścia osiem tysięcy')
+    subject[29000].should eq('Dwadzieścia dziewięć tysięcy')
+
+    subject[33000].should eq('Trzydzieści trzy tysiące')
+    subject[44000].should eq('Czterdzieści cztery tysiące')
+    subject[55000].should eq('Pięćdziesiąt pięć tysięcy')
+    subject[66000].should eq('Sześćdziesiąt sześć tysięcy')
+    subject[77000].should eq('Siedemdziesiąt siedem tysięcy')
+    subject[88000].should eq('Osiemdziesiąt osiem tysięcy')
+    subject[99000].should eq('Dziewięćdziesiąt dziewięć tysięcy')
+  end
+
+  it 'supports hundreds of thousands' do
+    subject[100_000].should eq('Sto tysięcy')
+
+    subject[101_000].should eq('Sto jeden tysięcy')
+    subject[102_000].should eq('Sto dwa tysiące')
+    subject[103_000].should eq('Sto trzy tysiące')
+    subject[104_000].should eq('Sto cztery tysiące')
+    subject[105_000].should eq('Sto pięć tysięcy')
+    subject[111_000].should eq('Sto jedenaście tysięcy')
+    subject[112_000].should eq('Sto dwanaście tysięcy')
+    subject[113_000].should eq('Sto trzynaście tysięcy')
+    subject[222_000].should eq('Dwieście dwadzieścia dwa tysiące')
+    subject[333_000].should eq('Trzysta trzydzieści trzy tysiące')
+    subject[444_000].should eq('Czterysta czterdzieści cztery tysiące')
+    subject[555_000].should eq('Pięćset pięćdziesiąt pięć tysięcy')
+    subject[666_000].should eq('Sześćset sześćdziesiąt sześć tysięcy')
+    subject[777_000].should eq('Siedemset siedemdziesiąt siedem tysięcy')
+    subject[999_000].should eq('Dziewięćset dziewięćdziesiąt dziewięć tysięcy')
+    subject[999_999].should eq('Dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć')
+  end
 end

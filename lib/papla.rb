@@ -6,7 +6,9 @@ module Papla
     if number.zero?
       ZERO
     else
-      split(number).join(' ')
+      groups = group(number)
+      groups_as_words = convert_groups(groups)
+      groups_as_words.flatten.join(' ')
     end.capitalize
   end
 
@@ -30,17 +32,68 @@ module Papla
     sześćset siedemset osiemset dziewięćset
   ].freeze
 
-  def self.split(number)
+  RANKS = [
+    [],
+    ['tysięcy', 'tysiąc', 'tysiące'].freeze
+  ].freeze
+
+  def self.group(number)
+    groups = []
+
+    while number > 0
+      number, group = number.divmod(1000)
+      groups.unshift(group)
+    end
+
+    groups
+  end
+
+  def self.convert_groups(groups)
+    bound = groups.count - 1
+    result = []
+
+    groups.each_with_index do |g, i|
+      if g > 0
+        result << convert_small_number(g)
+        result << rank(bound - i, g) if i < bound
+      end
+    end
+
+    result
+  end
+
+  def self.convert_small_number(number)
     if number.zero?
-      nil
+      []
     elsif number < 20
       [ONES[number]]
     elsif number < 100
       tens, remainder = number.divmod(10)
-      [TENS[tens], *split(remainder)]
+      [TENS[tens], convert_small_number(remainder)]
     else
       hundreds, remainder = number.divmod(100)
-      [HUNDREDS[hundreds], *split(remainder)]
+      [HUNDREDS[hundreds], convert_small_number(remainder)]
+    end
+  end
+
+  def self.rank(rank, number)
+    RANKS[rank][declination_index(number)]
+  end
+
+  def self.declination_index(number)
+    return 1 if number == 1
+
+    remainder = number - number / 100 * 100
+
+    case remainder
+    when 12..14 then 0
+    else
+      ones = number - number / 10 * 10
+
+      case ones
+      when 2..4 then 2
+      else 0
+      end
     end
   end
 end
