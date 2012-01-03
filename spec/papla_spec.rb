@@ -211,4 +211,8 @@ describe Papla do
     subject[880_000_000].should eq('Osiemset osiemdziesiąt milionów')
     subject[999_999_999].should eq('Dziewięćset dziewięćdziesiąt dziewięć milionów dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć')
   end
+
+  it 'does not support billions' do
+    proc { subject[1_000_000_000] }.should raise_error(ArgumentError)
+  end
 end

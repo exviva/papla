@@ -3,6 +3,7 @@ require "papla/version"
 
 module Papla
   def self.convert(number)
+    validate!(number)
     if number.zero?
       ZERO
     else
@@ -97,5 +98,10 @@ module Papla
       else 0
       end
     end
+  end
+
+  def self.validate!(number)
+    max = 999_999_999
+    raise ArgumentError, "#{number} is too big, only numbers up to #{max} are supported" if number > max
   end
 end
