@@ -34,7 +34,9 @@ module Papla
 
   RANKS = [
     [],
-    ['tysięcy', 'tysiąc', 'tysiące'].freeze
+    ['tysięcy', 'tysiąc', 'tysiące'].freeze,
+    ['milionów', 'milion', 'miliony'].freeze,
+    ['miliardów', 'miliard', 'miliardy'].freeze
   ].freeze
 
   def self.group(number)
@@ -52,10 +54,10 @@ module Papla
     bound = groups.count - 1
     result = []
 
-    groups.each_with_index do |g, i|
-      if g > 0
-        result << convert_small_number(g)
-        result << rank(bound - i, g) if i < bound
+    groups.each_with_index do |group, i|
+      if group > 0
+        result << convert_small_number(group)
+        result << rank(bound - i, group) if i < bound
       end
     end
 

@@ -166,4 +166,49 @@ describe Papla do
     subject[999_000].should eq('Dziewięćset dziewięćdziesiąt dziewięć tysięcy')
     subject[999_999].should eq('Dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć')
   end
+
+  it 'supports millions' do
+    subject[1_000_000].should eq('Jeden milion')
+    subject[1_000_001].should eq('Jeden milion jeden')
+    subject[1_001_001].should eq('Jeden milion jeden tysiąc jeden')
+    subject[1_234_567].should eq('Jeden milion dwieście trzydzieści cztery tysiące pięćset sześćdziesiąt siedem')
+    subject[2_000_000].should eq('Dwa miliony')
+    subject[3_303_303].should eq('Trzy miliony trzysta trzy tysiące trzysta trzy')
+    subject[4_004_000].should eq('Cztery miliony cztery tysiące')
+    subject[5_500_000].should eq('Pięć milionów pięćset tysięcy')
+    subject[6_000_000].should eq('Sześć milionów')
+    subject[7_000_000].should eq('Siedem milionów')
+    subject[9_000_000].should eq('Dziewięć milionów')
+  end
+
+  it 'supports tens of millions' do
+    subject[11_000_000].should eq('Jedenaście milionów')
+    subject[13_000_000].should eq('Trzynaście milionów')
+    subject[15_000_000].should eq('Piętnaście milionów')
+    subject[19_000_000].should eq('Dziewiętnaście milionów')
+    subject[20_000_000].should eq('Dwadzieścia milionów')
+    subject[22_000_000].should eq('Dwadzieścia dwa miliony')
+    subject[33_000_000].should eq('Trzydzieści trzy miliony')
+    subject[44_000_000].should eq('Czterdzieści cztery miliony')
+    subject[55_000_000].should eq('Pięćdziesiąt pięć milionów')
+    subject[66_000_000].should eq('Sześćdziesiąt sześć milionów')
+    subject[77_000_000].should eq('Siedemdziesiąt siedem milionów')
+    subject[88_000_000].should eq('Osiemdziesiąt osiem milionów')
+    subject[99_000_000].should eq('Dziewięćdziesiąt dziewięć milionów')
+    subject[99_999_999].should eq('Dziewięćdziesiąt dziewięć milionów dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć')
+  end
+
+  it 'supports hundreds of millions' do
+    subject[100_000_000].should eq('Sto milionów')
+    subject[100_000_001].should eq('Sto milionów jeden')
+    subject[102_100_000].should eq('Sto dwa miliony sto tysięcy')
+    subject[222_000_000].should eq('Dwieście dwadzieścia dwa miliony')
+    subject[333_000_000].should eq('Trzysta trzydzieści trzy miliony')
+    subject[400_000_000].should eq('Czterysta milionów')
+    subject[500_000_000].should eq('Pięćset milionów')
+    subject[600_000_000].should eq('Sześćset milionów')
+    subject[700_000_000].should eq('Siedemset milionów')
+    subject[880_000_000].should eq('Osiemset osiemdziesiąt milionów')
+    subject[999_999_999].should eq('Dziewięćset dziewięćdziesiąt dziewięć milionów dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć')
+  end
 end
