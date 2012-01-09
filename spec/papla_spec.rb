@@ -213,4 +213,18 @@ describe Papla do
   it 'does not support billions' do
     expect { subject[1_000_000_000] }.to raise_error(ArgumentError)
   end
+
+  describe 'floats' do
+    it 'appends the decimal part as cents' do
+      subject[1.23].should eq('Jeden 23/100')
+    end
+
+    it 'displays two decimal digits' do
+      subject[2.0].should eq('Dwa 00/100')
+    end
+
+    it 'rounds to two decimal places' do
+      subject[3.456].should eq('Trzy 46/100')
+    end
+  end
 end

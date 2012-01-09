@@ -22,18 +22,30 @@ module Papla
   #   Papla[12345] # => "Dwanaście tysięcy trzysta czterdzieści pięć"
   #   Papla[1_000_001] # => "Jeden milion jeden"
   #
+  # When given a <tt>Float</tt>, Papla will assume that
+  # the decimal part represents cents. It will then
+  # round the number using <tt>Float#round</tt> to
+  # two decimal places, and append the number
+  # of cents divided by hundred to the resulting string.
+  #
+  # Example:
+  #
+  #   Papla[1.0] # => "Jeden 00/100"
+  #   Papla[87.654321] # => "Osiemdziesiąt siedem 65/100"
+  #   Papla[2.999] # => "Trzy 00/100"
+  #
   # @param [Fixnum] number the number to convert
   # @return [String] the phrase in Polish
   def self.[](number)
     validate!(number)
+    number = prepare(number)
+    basic_number = number.to_i
+    basic_phrase = build_basic_phrase(basic_number)
 
-    if number.zero?
-      ZERO
-    else
-      groups = group(number)
-      groups_as_words = convert_groups(groups)
-      groups_as_words.flatten.join(' ')
-    end.capitalize
+    case number
+    when Float; append_cents(basic_phrase, number)
+    else basic_phrase
+    end
   end
 
   private
@@ -62,6 +74,23 @@ module Papla
     ['milionów', 'milion', 'miliony'].freeze,
     ['miliardów', 'miliard', 'miliardy'].freeze
   ].freeze
+
+  def self.prepare(number)
+    case number
+    when Float; number.round(2)
+    else number
+    end
+  end
+
+  def self.build_basic_phrase(basic_number)
+    if basic_number.zero?
+      ZERO
+    else
+      groups = group(basic_number)
+      groups_as_words = convert_groups(groups)
+      groups_as_words.flatten.join(' ')
+    end.capitalize
+  end
 
   def self.group(number)
     groups = []
@@ -126,5 +155,10 @@ module Papla
   def self.validate!(number)
     max = 999_999_999
     raise ArgumentError, "#{number} is too big, only numbers up to #{max} are supported" if number > max
+  end
+
+  def self.append_cents(basic_phrase, number)
+    cents = 100 * (number - number.to_i)
+    "%s %02d/100" % [basic_phrase, cents]
   end
 end

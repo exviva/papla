@@ -28,6 +28,22 @@ Papla[987_654_321] # => "Dziewięćset osiemdziesiąt siedem milionów sześćse
 
 ### Cents and currency
 
+#### Cents
+
+When given a `Float`, Papla will assume that the decimal part represents cents.
+It will then round the number using `Float#round` to two decimal places,
+and append the number of cents divided by hundred to the resulting string.
+
+Example:
+
+```ruby
+Papla[1.0] # => "Jeden 00/100"
+Papla[87.654321] # => "Osiemdziesiąt siedem 65/100"
+Papla[2.999] # => "Trzy 00/100"
+```
+
+#### Currency
+
 This feature is planned for future releases.
 
 ### Integration with Money, I18n and Rails
