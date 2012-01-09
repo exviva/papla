@@ -1,4 +1,4 @@
-### 0.0.2
+### 0.0.2 (2011-01-09)
 
 * display decimal part of floats as cents/100
 
