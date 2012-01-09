@@ -21,7 +21,7 @@ to your `Gemfile`.
 ### Basic examples
 
 ```ruby
-Papla[158] # => "Sto pięćdziesiąt"
+Papla[158] # => "Sto pięćdziesiąt osiem"
 Papla[1_234] # => "Tysiąc dwieście trzydzieści cztery"
 Papla[987_654_321] # => "Dziewięćset osiemdziesiąt siedem milionów sześćset pięćdziesiąt cztery tysiące trzysta dwadzieścia jeden"
 ```
