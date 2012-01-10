@@ -1,5 +1,5 @@
-# encoding: utf-8
-require "papla/version"
+require 'papla/backend'
+require 'papla/version'
 
 module Papla
   # Converts a number to Polish words, capitalizing
@@ -49,31 +49,6 @@ module Papla
   end
 
   private
-  ZERO = 'zero'
-
-  ONES = [nil] + %w[
-    jeden dwa trzy cztery pięć
-    sześć siedem osiem dziewięć dziesięć
-    jedenaście dwanaście trzynaście czternaście piętnaście
-    szesnaście siedemnaście osiemnaście dziewiętnaście
-  ].freeze
-
-  TENS = [nil, nil] + %w[
-    dwadzieścia trzydzieści czterdzieści pięćdziesiąt
-    sześćdziesiąt siedemdziesiąt osiemdziesiąt dziewięćdziesiąt
-  ].freeze
-
-  HUNDREDS = [nil] + %w[
-    sto dwieście trzysta czterysta pięćset
-    sześćset siedemset osiemset dziewięćset
-  ].freeze
-
-  RANKS = [
-    [],
-    ['tysięcy', 'tysiąc', 'tysiące'].freeze,
-    ['milionów', 'milion', 'miliony'].freeze,
-    ['miliardów', 'miliard', 'miliardy'].freeze
-  ].freeze
 
   def self.prepare(number)
     case number
@@ -84,7 +59,7 @@ module Papla
 
   def self.build_basic_phrase(basic_number)
     if basic_number.zero?
-      ZERO
+      spell_zero
     else
       groups = group(basic_number)
       groups_as_words = convert_groups(groups)
@@ -110,7 +85,7 @@ module Papla
     groups.each_with_index do |group, i|
       if group > 0
         result << convert_small_number(group)
-        result << rank(bound - i, group) if i < bound
+        result << spell_rank(bound - i, group) if i < bound
       end
     end
 
@@ -121,34 +96,13 @@ module Papla
     if number.zero?
       []
     elsif number < 20
-      [ONES[number]]
+      [spell_ones(number)]
     elsif number < 100
       tens, remainder = number.divmod(10)
-      [TENS[tens], convert_small_number(remainder)]
+      [spell_tens(tens), convert_small_number(remainder)]
     else
       hundreds, remainder = number.divmod(100)
-      [HUNDREDS[hundreds], convert_small_number(remainder)]
-    end
-  end
-
-  def self.rank(rank, number)
-    RANKS[rank][declination_index(number)]
-  end
-
-  def self.declination_index(number)
-    return 1 if number == 1
-
-    remainder = number - number / 100 * 100
-
-    case remainder
-    when 12..14 then 0
-    else
-      ones = number - number / 10 * 10
-
-      case ones
-      when 2..4 then 2
-      else 0
-      end
+      [spell_hundreds(hundreds), convert_small_number(remainder)]
     end
   end
 
@@ -159,6 +113,23 @@ module Papla
 
   def self.append_cents(basic_phrase, number)
     cents = 100 * (number - number.to_i)
-    "%s %02d/100" % [basic_phrase, cents]
+    spell_cents(basic_phrase, cents)
   end
+
+  @backends = {}
+
+  def self.backend
+    @backends[locale] ||= Backend.new(locale)
+  end
+
+  def self.locale
+    :pl
+  end
+
+  def self.spell_zero;                       backend.zero;                       end
+  def self.spell_ones(index);                backend.ones(index);                end
+  def self.spell_tens(index);                backend.tens(index);                end
+  def self.spell_hundreds(index);            backend.hundreds(index);            end
+  def self.spell_rank(index, number);        backend.rank(index, number);        end
+  def self.spell_cents(basic_phrase, cents); backend.cents(basic_phrase, cents); end
 end

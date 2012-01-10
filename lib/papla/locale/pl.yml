@@ -1,0 +1,61 @@
+pl:
+  papla:
+    zero: zero
+    ones:
+      - ~
+      - jeden
+      - dwa
+      - trzy
+      - cztery
+      - pięć
+      - sześć
+      - siedem
+      - osiem
+      - dziewięć
+      - dziesięć
+      - jedenaście
+      - dwanaście
+      - trzynaście
+      - czternaście
+      - piętnaście
+      - szesnaście
+      - siedemnaście
+      - osiemnaście
+      - dziewiętnaście
+    tens:
+      - ~
+      - ~
+      - dwadzieścia
+      - trzydzieści
+      - czterdzieści
+      - pięćdziesiąt
+      - sześćdziesiąt
+      - siedemdziesiąt
+      - osiemdziesiąt
+      - dziewięćdziesiąt
+    hundreds:
+      - ~
+      - sto
+      - dwieście
+      - trzysta
+      - czterysta
+      - pięćset
+      - sześćset
+      - siedemset
+      - osiemset
+      - dziewięćset
+    ranks:
+      - ~
+      -
+        one: tysiąc
+        few: tysiące
+        other: tysięcy
+      -
+        one: milion
+        few: miliony
+        other: milionów
+      -
+        one: miliard
+        few: miliardy
+        other: miliardów
+    cents: "%{basic_phrase} %{cents}/100"
