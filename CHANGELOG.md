@@ -1,3 +1,7 @@
+### 0.0.3 (2012-02-16)
+
+* provide localization using I18n
+
 ### 0.0.2 (2011-01-09)
 
 * display decimal part of floats as cents/100

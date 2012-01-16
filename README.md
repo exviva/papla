@@ -46,7 +46,13 @@ Papla[2.999] # => "Trzy 00/100"
 
 This feature is planned for future releases.
 
-### Integration with Money, I18n and Rails
+## Integration with Money, I18n and Rails
+
+### I18n
+
+Localization is provided by I18n. See `lib/papla/backend.rb` for details of keys used.
+
+### Money, Rails
 
 This feature is planned for future releases.
 
