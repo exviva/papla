@@ -1,4 +1,4 @@
-### 0.0.3 (2012-02-16)
+### 0.0.3 (2012-01-16)
 
 * provide localization using I18n
 
