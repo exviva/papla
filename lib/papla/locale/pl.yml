@@ -54,8 +54,4 @@ pl:
         one: milion
         few: miliony
         other: milionów
-      -
-        one: miliard
-        few: miliardy
-        other: miliardów
     cents: "%{basic_phrase} %{cents}/100"
