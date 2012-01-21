@@ -1,14 +1,9 @@
 require 'i18n'
 
-I18n.load_path << File.expand_path('../locale/pl.yml', __FILE__)
-I18n.load_path << File.expand_path('../locale/pl.rb', __FILE__)
+I18n.load_path += Dir[File.expand_path('../locale/*', __FILE__)]
 
 module Papla
   class Backend
-    def initialize(locale)
-      @locale = locale
-    end
-
     def zero
       translate(:zero)
     end
@@ -39,13 +34,12 @@ module Papla
     private
 
     def translate(message, options = {})
-      options[:locale] = @locale
       options[:scope] = :papla
       I18n.translate(message, options)
     end
 
     def pluralization_rule(number)
-      I18n.translate(:papla, locale: @locale)[:pluralization][number]
+      I18n.translate(:papla)[:pluralization][number]
     end
   end
 end

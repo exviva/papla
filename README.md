@@ -1,6 +1,10 @@
 # Papla [![Build Status](https://secure.travis-ci.org/exviva/papla.png)](http://travis-ci.org/exviva/papla)
 
-Papla is a Ruby gem that allows you to convert numbers into Polish words (e.g. `153` into `"sto pięćdziesiąt trzy"`), including the decimal part as cents and currency symbol. Its primary use case are invoices, where the total amount has to be displayed as words at the bottom line.
+Papla is a Ruby gem that allows you to convert numbers into Polish
+and English words (e.g. `153` into `"Sto pięćdziesiąt trzy"`
+or `44` into `"Forty four"`), including the decimal part as cents
+and currency symbol. Its primary use case are invoices, where
+the total amount has to be displayed as words at the bottom line.
 
 ## Installation
 
@@ -21,9 +25,13 @@ to your `Gemfile`.
 ### Basic examples
 
 ```ruby
+I18n.locale = :pl
 Papla[158] # => "Sto pięćdziesiąt osiem"
 Papla[1_234] # => "Tysiąc dwieście trzydzieści cztery"
 Papla[987_654_321] # => "Dziewięćset osiemdziesiąt siedem milionów sześćset pięćdziesiąt cztery tysiące trzysta dwadzieścia jeden"
+
+I18n.locale = :en
+Papla[1_234] # => "One thousand two hundred thirty four"
 ```
 
 ### Cents and currency
@@ -50,7 +58,11 @@ This feature is planned for future releases.
 
 ### I18n
 
-Localization is provided by I18n. See `lib/papla/backend.rb` for details of keys used.
+Localization is provided by I18n. See `lib/papla/backend.rb`
+for details of keys used. Currently `:pl` and `:en` locales are supported.
+
+Note: English support is not fully correct, e.g. `123` becomes
+`"One hundred twenty three"` and not `"One hundred and twenty three"`.
 
 ### Money, Rails
 

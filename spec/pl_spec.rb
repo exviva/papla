@@ -1,7 +1,13 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Papla do
+describe Papla, 'pl' do
+  around do |example|
+    I18n.with_locale(:pl) do
+      example.run
+    end
+  end
+
   it 'converts basic numbers' do
     subject[0].should eq('Zero')
     subject[1].should eq('Jeden')

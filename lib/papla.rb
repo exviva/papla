@@ -2,8 +2,11 @@ require 'papla/backend'
 require 'papla/version'
 
 module Papla
-  # Converts a number to Polish words, capitalizing
-  # the first letter of the whole phrase.
+  # Converts a number to Polish or English words,
+  # capitalizing the first letter of the whole phrase.
+  #
+  # Localisation is provided by <tt>I18n</tt>, the language
+  # of the result depends on <tt>I18n.locale</tt>.
   #
   # Currently numbers from 0 up to 999 999 999
   # are supported. If you pass a bigger number,
@@ -15,6 +18,7 @@ module Papla
   #
   # Examples:
   #
+  #   I18n.locale # => :pl
   #   Papla[0] # => "Zero"
   #   Papla[22] # => "Dwadzieścia dwa"
   #   Papla[150] # => "Sto pięćdziesiąt"
@@ -35,7 +39,7 @@ module Papla
   #   Papla[2.999] # => "Trzy 00/100"
   #
   # @param [Fixnum] number the number to convert
-  # @return [String] the phrase in Polish
+  # @return [String] the phrase in Polish or English
   def self.[](number)
     validate!(number)
     number = prepare(number)
@@ -116,14 +120,8 @@ module Papla
     spell_cents(basic_phrase, cents)
   end
 
-  @backends = {}
-
   def self.backend
-    @backends[locale] ||= Backend.new(locale)
-  end
-
-  def self.locale
-    :pl
+    @backend ||= Backend.new
   end
 
   def self.spell_zero;                       backend.zero;                       end
