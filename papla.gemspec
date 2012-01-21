@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["olek.janiszewski@gmail.com"]
   s.homepage    = "https://github.com/exviva/papla"
   s.summary     = %q{Use Ruby to convert numbers into Polish and English words}
-  s.description = %q{Papla is a Ruby gem that allows you to convert numbers into Polish and English words (e.g. `153` into `"Sto pięćdziesiąt trzy"` or `44` into `"Forty four"`), including the decimal part as cents and currency symbol. Its primary use case are invoices, where the total amount has to be displayed as words at the bottom line.}
+  s.description = %q{Papla is a Ruby gem that allows you to convert numbers into Polish and English words.}
 
   s.rubyforge_project = "papla"
 
