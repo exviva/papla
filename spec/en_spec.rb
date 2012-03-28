@@ -231,5 +231,9 @@ describe Papla, 'en' do
     it 'rounds to two decimal places' do
       subject[3.456].should eq('Three 46/100')
     end
+
+    it 'properly handles float precision imperfections' do
+      subject[111_111.2].should eq('One hundred eleven thousand one hundred eleven 20/100')
+    end
   end
 end

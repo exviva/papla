@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'papla/backend'
 require 'papla/version'
 
@@ -116,7 +118,7 @@ module Papla
   end
 
   def self.append_cents(basic_phrase, number)
-    cents = 100 * (number - number.to_i)
+    cents = 100 * (number.to_d - number.to_i)
     spell_cents(basic_phrase, cents)
   end
 
