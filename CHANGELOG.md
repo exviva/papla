@@ -1,3 +1,7 @@
+### 0.0.5 (2012-01-21)
+
+* Make converting decimal points more robust
+
 ### 0.0.4 (2012-01-21)
 
 * support English locale
