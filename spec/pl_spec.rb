@@ -237,4 +237,11 @@ describe Papla, 'pl' do
       subject[111_111.2].should eq('Sto jedenaście tysięcy sto jedenaście 20/100')
     end
   end
+
+  describe 'money' do
+    it 'concatenates dollars, cents and currency' do
+      eleven_and_a_half_pounds = Money.new(1150, 'GBP')
+      Papla[eleven_and_a_half_pounds].should eq('Jedenaście 50/100 GBP')
+    end
+  end
 end

@@ -40,9 +40,24 @@ module Papla
   #   Papla[87.654321] # => "Osiemdziesiąt siedem 65/100"
   #   Papla[2.999] # => "Trzy 00/100"
   #
+  # If you're using the `money` gem, you can pass in an instance
+  # of `Money` to Papla. The returned string will contain the dollars
+  # part as words, the cents part as 'xx/100' and the currency
+  # string (e.g. `EUR`).
+  #
+  # Example:
+  #
+  #   eleven_and_a_half_pounds = Money.new(1150, 'GBP')
+  #   Papla[eleven_and_a_half_pounds] # => "Jedenaście 50/100 GBP"
+  #
+  #   I18n.locale = :en
+  #   discounted_price = Money.new(9999, 'PLN')
+  #   Papla[discounted_price] # => "Ninety nine 99/100 PLN"
+  #
   # @param [Fixnum] number the number to convert
   # @return [String] the phrase in Polish or English
   def self.[](number)
+    return convert_money(number) if money?(number)
     validate!(number)
     number = prepare(number)
     basic_number = number.to_i
@@ -119,7 +134,16 @@ module Papla
 
   def self.append_cents(basic_phrase, number)
     cents = 100 * (number.to_d - number.to_i)
+    cents = cents.round(2)
     spell_cents(basic_phrase, cents)
+  end
+
+  def self.money?(maybe_money)
+    defined?(Money) && maybe_money.is_a?(Money)
+  end
+
+  def self.convert_money(money)
+    '%s %s' % [self[money.to_f], money.currency_as_string]
   end
 
   def self.backend

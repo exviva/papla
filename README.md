@@ -54,7 +54,7 @@ Papla[2.999] # => "Trzy 00/100"
 
 This feature is planned for future releases.
 
-## Integration with Money, I18n and Rails
+## Integration with I18n and Money
 
 ### I18n
 
@@ -64,9 +64,22 @@ for details of keys used. Currently `:pl` and `:en` locales are supported.
 Note: English support is not fully correct, e.g. `123` becomes
 `"One hundred twenty three"` and not `"One hundred and twenty three"`.
 
-### Money, Rails
+### Money
 
-This feature is planned for future releases.
+If you're using the `money` gem, you can pass in an instance of `Money` to Papla.
+The returned string will contain the dollars part as words,
+the cents part as 'xx/100' and the currency string (e.g. `EUR`).
+
+Example:
+
+```ruby
+eleven_and_a_half_pounds = Money.new(1150, 'GBP')
+Papla[eleven_and_a_half_pounds] # => "Jedenaście 50/100 GBP"
+
+I18n.locale = :en
+discounted_price = Money.new(9999, 'PLN')
+Papla[discounted_price] # => "Ninety nine 99/100 PLN"
+```
 
 ## Documentation
 

@@ -1,1 +1,2 @@
+require 'money'
 require 'papla'
