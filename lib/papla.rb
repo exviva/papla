@@ -1,9 +1,9 @@
-require 'bigdecimal'
-require 'bigdecimal/util'
-require 'papla/backend'
-require 'papla/version'
-
 module Papla
+  autoload :Backend, 'papla/backend'
+  autoload :FixnumConverter, 'papla/fixnum_converter'
+  autoload :FloatConverter, 'papla/float_converter'
+  autoload :MoneyConverter, 'papla/money_converter'
+
   # Converts a number to Polish or English words,
   # capitalizing the first letter of the whole phrase.
   #
@@ -57,103 +57,18 @@ module Papla
   # @param [Fixnum] number the number to convert
   # @return [String] the phrase in Polish or English
   def self.[](number)
-    return convert_money(number) if money?(number)
-    validate!(number)
-    number = prepare(number)
-    basic_number = number.to_i
-    basic_phrase = build_basic_phrase(basic_number)
-
-    case number
-    when Float; append_cents(basic_phrase, number)
-    else basic_phrase
-    end
+    converter = converter_for(number)
+    converter.new.convert(number)
   end
 
   private
 
-  def self.prepare(number)
+  def self.converter_for(number)
     case number
-    when Float; number.round(2)
-    else number
+    when defined?(Money) && Money then MoneyConverter
+    when Float then FloatConverter
+    when Fixnum then FixnumConverter
+    else raise ArgumentError, "Unsupported type: #{klass}"
     end
   end
-
-  def self.build_basic_phrase(basic_number)
-    if basic_number.zero?
-      spell_zero
-    else
-      groups = group(basic_number)
-      groups_as_words = convert_groups(groups)
-      groups_as_words.flatten.join(' ')
-    end.capitalize
-  end
-
-  def self.group(number)
-    groups = []
-
-    while number > 0
-      number, group = number.divmod(1000)
-      groups.unshift(group)
-    end
-
-    groups
-  end
-
-  def self.convert_groups(groups)
-    bound = groups.count - 1
-    result = []
-
-    groups.each_with_index do |group, i|
-      if group > 0
-        result << convert_small_number(group)
-        result << spell_rank(bound - i, group) if i < bound
-      end
-    end
-
-    result
-  end
-
-  def self.convert_small_number(number)
-    if number.zero?
-      []
-    elsif number < 20
-      [spell_ones(number)]
-    elsif number < 100
-      tens, remainder = number.divmod(10)
-      [spell_tens(tens), convert_small_number(remainder)]
-    else
-      hundreds, remainder = number.divmod(100)
-      [spell_hundreds(hundreds), convert_small_number(remainder)]
-    end
-  end
-
-  def self.validate!(number)
-    max = 999_999_999
-    raise ArgumentError, "#{number} is too big, only numbers up to #{max} are supported" if number > max
-  end
-
-  def self.append_cents(basic_phrase, number)
-    cents = 100 * (number.to_d - number.to_i)
-    cents = cents.round(2)
-    spell_cents(basic_phrase, cents)
-  end
-
-  def self.money?(maybe_money)
-    defined?(Money) && maybe_money.is_a?(Money)
-  end
-
-  def self.convert_money(money)
-    '%s %s' % [self[money.to_f], money.currency_as_string]
-  end
-
-  def self.backend
-    @backend ||= Backend.new
-  end
-
-  def self.spell_zero;                       backend.zero;                       end
-  def self.spell_ones(index);                backend.ones(index);                end
-  def self.spell_tens(index);                backend.tens(index);                end
-  def self.spell_hundreds(index);            backend.hundreds(index);            end
-  def self.spell_rank(index, number);        backend.rank(index, number);        end
-  def self.spell_cents(basic_phrase, cents); backend.cents(basic_phrase, cents); end
 end
