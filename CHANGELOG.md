@@ -1,3 +1,7 @@
+### 0.1.1 (2012-04-23)
+
+* Eagerly require backend to ensure translations are loaded
+
 ### 0.1.0 (2012-04-20)
 
 * Support Money
