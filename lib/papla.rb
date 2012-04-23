@@ -1,5 +1,6 @@
+require 'papla/backend'
+
 module Papla
-  autoload :Backend, 'papla/backend'
   autoload :FixnumConverter, 'papla/fixnum_converter'
   autoload :FloatConverter, 'papla/float_converter'
   autoload :MoneyConverter, 'papla/money_converter'
