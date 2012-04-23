@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'i18n'
 
   s.add_development_dependency 'money'
-  s.add_development_dependency 'rspec', '>= 2.8.0'
+  s.add_development_dependency 'rspec'
   s.add_development_dependency 'rake'
 end
