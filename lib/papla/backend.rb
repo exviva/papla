@@ -23,7 +23,7 @@ module Papla
     def rank(index, number)
       rule = pluralization_rule(number)
       rules = translate(:ranks)[index]
-      rules[rule.to_s]
+      rules[rule] || rules[rule.to_s]
     end
 
     def cents(basic_phrase, cents)
