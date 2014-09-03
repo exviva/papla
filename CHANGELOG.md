@@ -1,3 +1,7 @@
+### 0.1.2 (2014-09-03)
+
+* Support symbol keys in pluralization rules
+
 ### 0.1.1 (2012-04-23)
 
 * Eagerly require backend to ensure translations are loaded
