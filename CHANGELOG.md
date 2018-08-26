@@ -1,3 +1,7 @@
+### Unreleased
+
+* Ruby 2.5 compatibility
+
 ### 0.1.2 (2014-09-03)
 
 * Support symbol keys in pluralization rules

@@ -1,5 +1,5 @@
 module Papla
-  class FixnumConverter
+  class IntegerConverter
     def convert(number)
       validate!(number)
 

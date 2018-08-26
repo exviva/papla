@@ -1,7 +1,7 @@
 require 'papla/backend'
 
 module Papla
-  autoload :FixnumConverter, 'papla/fixnum_converter'
+  autoload :IntegerConverter, 'papla/integer_converter'
   autoload :FloatConverter, 'papla/float_converter'
   autoload :MoneyConverter, 'papla/money_converter'
 
@@ -68,8 +68,8 @@ module Papla
     case number
     when defined?(Money) && Money then MoneyConverter
     when Float then FloatConverter
-    when Fixnum then FixnumConverter
-    else raise ArgumentError, "Unsupported type: #{klass}"
+    when Integer then IntegerConverter
+    else raise ArgumentError, "Unsupported type: #{number.class}"
     end
   end
 end

@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 
 module Papla
-  class FloatConverter < FixnumConverter
+  class FloatConverter < IntegerConverter
     def convert(number)
       number = number.round(2)
       append_cents(super(number.to_i), number)
