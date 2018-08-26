@@ -7,7 +7,7 @@ module Papla
     private
 
     def append_currency(phrase, money)
-      '%s %s' % [phrase, money.currency_as_string]
+      '%s %s' % [phrase, money.currency]
     end
   end
 end

@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Fix deprecation warning when using Money
 * Ruby 2.5 compatibility
 
 ### 0.1.2 (2014-09-03)
