@@ -35,7 +35,7 @@ module Papla
 
     def translate(message, options = {})
       options[:scope] = :papla
-      I18n.translate(message, options)
+      I18n.translate(message, **options)
     end
 
     def pluralization_rule(number)
