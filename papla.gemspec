@@ -11,8 +11,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Use Ruby to convert numbers into Polish and English words}
   s.description = %q{Papla is a Ruby gem that allows you to convert numbers into Polish and English words.}
 
-  s.rubyforge_project = "papla"
-
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
