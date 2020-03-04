@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 0.2.1 (2020-03-04)
+
 * Fix deprecation warning when using I18n and Ruby 2.7
 
 ### 0.2.0 (2018-08-27)
